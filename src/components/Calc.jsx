@@ -5,7 +5,7 @@ function Calc() {
   const [currentValue, setCurrentValue] = useState("0");
 
   const [pendingOperation, setPendingOperation] = useState(null);
-  const [pedingValue, setPedingValue] = useState(null);
+  const [pendingValue, setPedingValue] = useState(null);
   const [completeOperation, setCompleteOperation] = useState("");
 
   const keypadNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -24,6 +24,27 @@ function Calc() {
 
         setCompleteOperation(prevOperation => prevOperation + val)
   }
+
+  const handleClear = ()=> {
+    setCurrentValue("0")
+    setPendingOperation(null)
+    setPedingValue(null)
+  }
+
+
+  const handleOperation = (operation) => {
+    setCompleteOperation(currentValue + ' ' + operation)
+    setPendingOperation(operation)
+    setPedingValue(currentValue)
+    setCurrentValue('0')
+  }
+
+  const handleCalcule = ()=> {
+    if(!pendingOperation || !pendingValue){
+
+    }
+  }
+
   return (
     <div className="calc">
       <div className="completeOperation">{completeOperation}</div>
@@ -43,7 +64,7 @@ function Calc() {
         ))}
 
         {operations.map((num, i) => (
-          <button key={i}>{num}</button>
+          <button key={i} onClick={()=> handleOperation(num) }>{num}</button>
         ))}
         <button>=</button>
       </div>
